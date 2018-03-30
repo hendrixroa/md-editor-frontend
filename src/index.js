@@ -1,8 +1,19 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { BrowserRouter } from 'react-router-dom'
+import './index.css'
+import App from './app/App'
+import WebFontLoader from 'webfontloader';
 
-ReactDOM.render(<App />, document.getElementById('root'));
-registerServiceWorker();
+WebFontLoader.load({
+ google: {
+    families: ['Roboto:300,400,500,700', 'Material Icons'],
+  },
+})
+
+ReactDOM.render(
+	<BrowserRouter>
+		<App />
+	</BrowserRouter>,
+	document.getElementById('root')
+)
