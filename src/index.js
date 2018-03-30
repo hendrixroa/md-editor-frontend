@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
 import './index.css'
 import App from './app/App'
-import WebFontLoader from 'webfontloader';
+import WebFontLoader from 'webfontloader'
 
 WebFontLoader.load({
  google: {
