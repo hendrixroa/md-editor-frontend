@@ -129,9 +129,9 @@ class Create extends Component {
   }
 
   countDays(date){
-    const dateInit = moment(date)
-    const dateEnd = moment(new Date())
-    return `${dateInit.diff(dateEnd, 'days') + 1} days ago`
+    const dateInit = moment(date, 'dd mm yyyy')
+    const dateEnd = moment(new Date(), 'dd mm yyyy')
+    return `${dateInit.diff(dateEnd, 'days') === 0 ? 'today' : dateInit.diff(dateEnd, 'days') + ' days ago'}`
   }
 
   selectDocument(id, document){
@@ -144,6 +144,16 @@ class Create extends Component {
     })
   }
 
+  newDocument(){
+    this.setState({
+      data: {
+        id: '',
+        document: '',
+        update: false
+      }
+    })
+  }
+
   render() {
     return (
       <div>
@@ -151,6 +161,9 @@ class Create extends Component {
           <Cell size={2}>
           <List className="md-paper md-paper--1">
           <Subheader primaryText="MARKDOWNEDITOR" />
+          <div className="center-button">
+            <Button onClick={() => this.newDocument()} raised>New</Button>
+          </div>  
             {
               this.state.lists.documents.map((doc) => {
                 return (
@@ -174,12 +187,12 @@ class Create extends Component {
               value={this.state.data.document}
               onChange={this.handleOnChange}
             />
-            <div>
+            <div className="center-button">
               { 
                 this.state.data.update ? 
                 <div>
                   <Button flat primary swapTheming onClick={ this.updateDocument }>Update</Button>
-                  <Button flat primary swapTheming onClick={ this.deleteDocument }>Delete</Button>
+                  <Button flat secondary swapTheming onClick={ this.deleteDocument }>Delete</Button>
                 </div>
                 : <Button flat primary swapTheming onClick={ this.handleSubmit }>Save</Button>
               }
@@ -192,11 +205,11 @@ class Create extends Component {
         <DialogContainer
           id="dialog"
           visible={this.state.message.visible}
-          title="Simple List Dialog"
+          title="MarkdownEditor Notify"
           onHide={this.close}
         >
         {this.state.message.text}
-        <div>
+        <div className="center-button">
           <Button flat primary swapTheming onClick={ this.close }>Close</Button>
         </div>
         </DialogContainer>

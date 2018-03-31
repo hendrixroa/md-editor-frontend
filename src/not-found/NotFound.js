@@ -6,7 +6,8 @@ class NotFound extends Component {
   render() {
     return (
       <div>
-       Not Found
+       <p>Not Found route, maybe you do want go to this url: </p>
+       <Link to="/login">Login</Link>
       </div>
     )
   }
