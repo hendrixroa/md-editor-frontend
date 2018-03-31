@@ -1,3 +1,3 @@
 export const servicesApi = {
-  apiUrl: 'https://md-editor-backend.herokuapp.com'
+  apiUrl: 'http://md-editor-backend.herokuapp.com'
 }
