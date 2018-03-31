@@ -12,7 +12,10 @@ import {
   FontIcon,
   List,
   ListItem,
-  Subheader } from 'react-md'
+  Subheader,
+  Card,
+  CardText
+ } from 'react-md'
 import moment from 'moment'
 import { servicesApi } from '../utils/servicesApi'
 import { Auth } from '../utils/Auth'
@@ -204,7 +207,11 @@ class Create extends Component {
             </div>
           </Cell>
           <Cell size={5}>
-            <ReactMarkdown escapeHtml={false} skipHtml={false} source={this.state.data.document} /> 
+            <Card className="md-block-centered">
+              <CardText>
+                <ReactMarkdown escapeHtml={false} skipHtml={false} source={this.state.data.document} /> 
+              </CardText>
+            </Card>
           </Cell>
         </Grid>
         <DialogContainer
