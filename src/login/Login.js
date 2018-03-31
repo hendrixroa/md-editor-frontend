@@ -39,7 +39,7 @@ class Login extends Component {
   async loginUser(){
     const url = `${servicesApi.apiUrl}/auth`
     const login = await axios.post(url, this.state).catch(err => { alert('Cannot login user') })
-    if(login.status === 200 && login.auth === true){
+    if(login.data.status === 200 && login.data.auth === true){
       Auth.setUser(login.data)
       this.props.history.push('/editor')
     }else{

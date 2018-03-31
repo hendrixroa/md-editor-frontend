@@ -4,9 +4,6 @@ export const Validator = {
     return regexEmail.test(email)
   },
   passwordLength: (password) => {
-  	return password.length > 8
-  },
-  validateLengthPost: (post) => {
-    return post.length > 60
+  	return password.length > 7
   }
 }

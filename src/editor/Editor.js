@@ -15,6 +15,7 @@ import {
   Subheader } from 'react-md'
 import moment from 'moment'
 import { servicesApi } from '../utils/servicesApi'
+import { Auth } from '../utils/Auth'
 import { Headers } from '../utils/headers'
 import './Editor.css'
 
@@ -44,18 +45,22 @@ class Create extends Component {
   }
 
   async refreshDocuments(){
-    const documents = await axios.get(`${servicesApi.apiUrl}/document`)
+    const documents = await axios.get(`${servicesApi.apiUrl}/document`, Headers.getHeaderToken()).catch(err => { this.setState({ message: {visible: true, text: 'Cannot refresh documents' }}) })
     this.setState({
       lists: {documents: documents.data}
     })
   }
 
   componentDidMount(){
+    if(!Auth.isLoged()){
+      this.props.history.push('/login')
+    }
     this.refreshDocuments()
   }
 
   async handleSubmit(event){
-    const create = await axios.post(`${servicesApi.apiUrl}/document`, this.state.data).catch(err => { this.setState({ message: {visible: true, text: 'Cannot create document' }}) })
+    const url = `${servicesApi.apiUrl}/document`
+    const create = await axios.post(url, this.state.data, Headers.getHeaderToken()).catch(err => { this.setState({ message: {visible: true, text: 'Cannot create document' }}) })
     if(create.status === 200){
       this.setState({
         message: {
@@ -74,7 +79,7 @@ class Create extends Component {
     const url = `${servicesApi.apiUrl}/document/${this.state.data.id}`
     const data = {document: this.state.data.document}
     const update = await axios.put(url, data, Headers.getHeaderToken()).catch(err => { this.setState({ message: {visible: true, text: 'Cannot update document' }}) })
-    if(update.status === 200){
+    if(update.data.status === 200){
       this.setState({
         message: {
           visible: true,
@@ -92,7 +97,7 @@ class Create extends Component {
   
   async deleteDocument(event){
     const url = `${servicesApi.apiUrl}/document/${this.state.data.id}`
-    const remove = await axios.delete(url, {}, Headers.getHeaderToken()).catch(err => { this.setState({ message: {visible: true, text: 'Cannot deleted document' }}) })
+    const remove = await axios.delete(url, Headers.getHeaderToken()).catch(err => { this.setState({ message: {visible: true, text: 'Cannot deleted document' }}) })
     if(remove.status === 200){
       this.setState({
         message: {
